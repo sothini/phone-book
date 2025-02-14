@@ -2,15 +2,20 @@
   <div>Authenticating...</div>
 }
 @else {
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <label>
-        Email:
-        <input type="email" formControlName="email">
-      </label>
-    <label>
-      Password:
-      <input type="password" formControlName="password">
-    </label>
-    <button type="submit" [disabled]="isAuthenticating">Login</button>
-  </form>
+
+    <div class="container-fluid d-flex h-75 justify-content-center  align-items-center ">
+      <form class="d-flex flex-column col-10 col-sm-5 col-md-4 col-lg-3"  [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label  class="form-label">Email:</label>
+          <input type="email" class="form-control" formControlName="email"  placeholder="email">
+        </div>
+        <div class="mb-3">
+          <label  class="form-label">Password:</label>
+          <input type="password" class="form-control" formControlName="password"  placeholder="password">
+        </div>
+        <button class="btn btn-purple" type="submit" [disabled]="isAuthenticating">Login</button>
+      </form>
+    </div>
+
+
 }
