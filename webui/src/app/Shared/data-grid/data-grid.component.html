@@ -11,12 +11,13 @@
     }
 }
 @else {
-    <table>
+    <table class="table">
         <thead>
             <tr>
                 @for (header of headers; track $index) {
                     <th>{{ header }}</th>
                 }
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +29,7 @@
                     @if(actions) {
                         <td>
                             @for (action of actions; track action) {
-                                <button (click)="action.action(item)">{{ action.label }}</button>
+                                <button class="btn btn-purple btn-sm" (click)="action.action(item)">{{ action.label }}</button>
                             }
                         </td>
                     }
