@@ -2,9 +2,21 @@
     <mat-toolbar-row>
         <span>Phone Book</span>
         <span class="spacer"></span>
-        <button mat-button [routerLink]="['/profile']">Profile</button>
-        <button mat-button [routerLink]="['/history']">History</button>
-        <button mat-button [routerLink]="['/contacts']">Contacts</button>
+        <div class="d-none d-sm-block">
+          <button mat-button [routerLink]="['/profile']">Profile</button>
+          <button mat-button [routerLink]="['/history']">History</button>
+          <button mat-button [routerLink]="['/contacts']">Contacts</button>
+        </div>
+        <div class="btn-group navbar d-sm-none">
+          <button type="button bg-white" data-bs-toggle="dropdown" aria-expanded="false"  class="navbar-toggler">
+            <span class="navbar-toggler-icon text-white"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li> <button class="dropdown-item" [routerLink]="['/profile']">Profile</button></li>
+            <li> <button class="dropdown-item" [routerLink]="['/history']">History</button></li>
+            <li> <button class="dropdown-item" [routerLink]="['/contacts']">Contacts</button></li>
+          </ul>
+        </div>
     </mat-toolbar-row>
 </mat-toolbar>
 
@@ -13,3 +25,4 @@
     <a mat-list-item [routerLink]="['/history']">History</a>
     <a mat-list-item [routerLink]="['/contacts']">Contacts</a>
 </mat-nav-list>
+
