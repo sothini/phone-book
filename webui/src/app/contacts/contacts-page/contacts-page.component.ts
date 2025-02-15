@@ -31,7 +31,6 @@ export class ContactsPageComponent implements OnInit {
       {
         label: 'Send Message',
         icon: 'message',
-        // action: (contact: Contact) => this.sendMessage(contact)
         action: (contact: Contact) => this.showModal(contact)
       }
     ];

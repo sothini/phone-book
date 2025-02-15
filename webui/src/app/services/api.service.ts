@@ -56,7 +56,6 @@ export class ApiService {
     return this.http.put<any>(this.apiUrl + 'me/update' , {user,name, email },{headers}).pipe(
       tap((response: any) => {
         if (response) {
-          console.log(response);
           localStorage.setItem('user', JSON.stringify(response));
           return true;
         } else {
