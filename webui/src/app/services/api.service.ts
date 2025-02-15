@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Contact, ContactsResponse } from '../models/contact.model';
+import { Message, MessagesResponse } from '../models/message.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,15 @@ export class ApiService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.get<ContactsResponse>(this.apiUrl + 'contacts', { headers }).pipe(
+      map(response => response.data)
+    );
+  }
+
+  getMessages(): Observable<Message[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<MessagesResponse>(this.apiUrl + 'messages', { headers }).pipe(
       map(response => response.data)
     );
   }

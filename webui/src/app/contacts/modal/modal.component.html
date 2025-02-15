@@ -11,8 +11,8 @@
           <div class="form-group mb-2">
             <label for="messageType">Type</label>
             <select required="required" class="form-control" formControlName="type">
-              <option value="text">Text</option>
-              <option value="email">Email</option>
+              <option value="TEXT">Text</option>
+              <option value="EMAIL">Email</option>
             </select>
           </div>
           <div class="form-group">
@@ -23,7 +23,12 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-purple" >Send Message</button>
+        @if(!isSubmitButtonHidden)
+        {
+          <button type="submit" class="btn btn-purple" >Send Message</button>
+        }
+
+
       </div>
     </form>
   </div>

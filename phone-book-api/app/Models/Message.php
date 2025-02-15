@@ -20,6 +20,15 @@ class Message extends Model
 
     protected $fillable = ['type', 'body', 'status', 'user_id', 'contact_id'];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-M-d H:m',
+    ];
+
+    public function getToAttribute()
+    {
+        return $this->contact?->name;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -31,4 +31,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/contacts', 'App\Http\Controllers\ContactController@index');
     Route::post('/contacts', 'App\Http\Controllers\ContactController@store');
     Route::get('/contacts/{id}', 'App\Http\Controllers\ContactController@show');
+
+    //Get contacts
+    Route::get('/messages', 'App\Http\Controllers\MessageController@index');
 });

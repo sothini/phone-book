@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import gql from 'graphql-tag';
+import { Message } from '../../models/message.model';
 
 declare var bootstrap: any;
 
@@ -16,8 +17,7 @@ declare var bootstrap: any;
 export class ModalComponent {
   @Input() contact: Contact = {} as Contact;
   submitForm!: FormGroup;
-  messageType: string = 'text';
-  messageBody: string = '';
+  isSubmitButtonHidden :boolean = false;
   selectedContact: Contact | null = null;
   modalInstance: any;
 
@@ -33,6 +33,26 @@ export class ModalComponent {
   openModal(contact: Contact) {
     this.contact = contact;
     const modalElement = document.getElementById('sendMessageModal');
+
+    if (modalElement) {
+      this.modalInstance = new bootstrap.Modal(modalElement);
+      this.modalInstance.show();
+    }
+  }
+
+  viewModal(message : Message)
+  {
+    const modalElement = document.getElementById('sendMessageModal');
+
+    this.isSubmitButtonHidden = true;
+    this.submitForm.setValue({
+      type: message.type,
+      body: message.body
+    });
+
+    this.submitForm.get('type')?.disable();
+    this.submitForm.get('body')?.disable();
+
 
     if (modalElement) {
       this.modalInstance = new bootstrap.Modal(modalElement);
@@ -75,8 +95,10 @@ export class ModalComponent {
           user_id: JSON.parse(localStorage.getItem('user') || '')?.id || ''
         }
       }).subscribe(result => {
+        alert('Message sent');
         console.log('Message sent:', result);
       }, error => {
+        alert('Error sending message');
         console.error('Error sending message:', error);
       });
 

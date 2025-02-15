@@ -15,7 +15,15 @@
         <thead>
             <tr>
                 @for (header of headers; track $index) {
-                    <th>{{ header }}</th>
+                    @if(header == 'created_at')
+                    {
+                      <th>Date Created </th>
+                    }
+                    @else
+                    {
+                      <th>{{ header }}</th>
+                    }
+
                 }
                 <th></th>
             </tr>
@@ -27,7 +35,7 @@
                         <td>{{ item[header.toLowerCase()] }}</td>
                     }
                     @if(actions) {
-                        <td>
+                        <td class="text-end">
                             @for (action of actions; track action) {
                                 <button class="btn btn-purple btn-sm" (click)="action.action(item)">{{ action.label }}</button>
                             }
