@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-profile-management',
@@ -28,10 +29,42 @@ export class ProfileManagementComponent implements OnInit {
   }
 
   updateProfile(): void {
-    throw new Error('Not implemented');
+    if (this.updateMyProfileForm?.valid) {
+      this.apiService.updateProfile(this.updateMyProfileForm.value.name, this.updateMyProfileForm.value.email).pipe(
+        tap((success) => {
+          if (success) {
+            alert('Updated successfully');
+          } else {
+            alert('Update failed');
+          }
+        }),
+        catchError((error) => {
+          alert('Update failed:'+error.error.message);
+          console.error('An error occurred:', error);
+          return of(null);
+        })
+      ).subscribe();
+    }
   }
 
   updatePassword(): void {
-    throw new Error('Not implemented');
+    if (this.updatePasswordForm?.valid) {
+      this.apiService.updatePassword(this.updatePasswordForm.value.currentPassword,
+        this.updatePasswordForm.value.newPassword,this.updatePasswordForm.value.confirmPassword)
+      .pipe(
+        tap((success) => {
+          if (success) {
+            alert('Updated successfully');
+          } else {
+            alert('Update failed');
+          }
+        }),
+        catchError((error) => {
+          alert('Update failed:'+error.error.message);
+          console.error('An error occurred:', error);
+          return of(null);
+        })
+      ).subscribe();
+    }
   }
 }

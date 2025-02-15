@@ -68,12 +68,12 @@ class UserController extends BaseController
 
     public function updateMe(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-        ]);
-
         $user = $request->user();
+
+       $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+        ]);
 
         $user->name = $validated['name'];
         $user->email = $validated['email'];
@@ -97,7 +97,7 @@ class UserController extends BaseController
             return response()->json(['message' => 'Invalid current password'], 400);
         }
 
-        $user->password = $validated['password'];
+        $user->password = $validated['confirm_password'];
 
         $user->save();
 
