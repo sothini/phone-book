@@ -1,7 +1,11 @@
+
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
 $purple: #7b1fa2;
 
-$theme-colors: (
-  "purple":    $purple,
-
-);
+$theme-colors:map-merge($theme-colors, (
+  "purple": $purple
+));
 

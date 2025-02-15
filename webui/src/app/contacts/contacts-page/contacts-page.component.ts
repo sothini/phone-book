@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,  OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { DataGridComponent } from "../../Shared/data-grid/data-grid.component";
 import { Contact } from '../../models/contact.model';
@@ -6,18 +6,22 @@ import { tap } from 'rxjs/operators';
 import { TableAction } from '../../models/table-action.model';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { ModalComponent } from '../modal/modal.component';
+
+
 
 @Component({
   selector: 'app-contacts-page',
   standalone: true,
   templateUrl: './contacts-page.component.html',
   styleUrl: './contacts-page.component.scss',
-  imports: [DataGridComponent]
+  imports: [DataGridComponent,ModalComponent]
 })
 export class ContactsPageComponent implements OnInit {
   contacts: Contact[] = [];
   actions: TableAction[] = [];
   loading: boolean = true;
+@ViewChild(ModalComponent) modalComponent!: ModalComponent;
 
   constructor(private apiService: ApiService, private apollo: Apollo) { }
 
@@ -27,7 +31,8 @@ export class ContactsPageComponent implements OnInit {
       {
         label: 'Send Message',
         icon: 'message',
-        action: (contact: Contact) => this.sendMessage(contact)
+        // action: (contact: Contact) => this.sendMessage(contact)
+        action: (contact: Contact) => this.showModal(contact)
       }
     ];
     this.apiService.getContacts().pipe(
@@ -40,6 +45,11 @@ export class ContactsPageComponent implements OnInit {
 
   getHeaders(): string[] {
     return ['Name', 'Email', 'Phone'];
+  }
+
+  showModal(contact: Contact)
+  {
+    this.modalComponent.openModal(contact);
   }
 
   sendMessage(contact: Contact) {
