@@ -17,9 +17,10 @@ export class ProfileManagementComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private apiService: ApiService) { }
 
   ngOnInit(): void {
+    const user = JSON.parse(localStorage.getItem('user') ?? '{}');
     this.updateMyProfileForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      name: [user.name ?? '', Validators.required],
+      email: [user.email ?? '', [Validators.required, Validators.email]],
     });
     this.updatePasswordForm = this.formBuilder.group({
       currentPassword: ['', Validators.required],

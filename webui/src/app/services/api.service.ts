@@ -55,8 +55,9 @@ export class ApiService {
     const user = JSON.parse(localStorage.getItem('user') ?? '{}');
     return this.http.put<any>(this.apiUrl + 'me/update' , {user,name, email },{headers}).pipe(
       tap((response: any) => {
-        if (response && response.user) {
-          localStorage.setItem('user', JSON.stringify(response.user));
+        if (response) {
+          console.log(response);
+          localStorage.setItem('user', JSON.stringify(response));
           return true;
         } else {
           return false;
@@ -72,8 +73,7 @@ export class ApiService {
     return this.http.post<any>(this.apiUrl + 'me/update-password' , {user,current_password, new_password,confirm_password },
       {headers}).pipe(
       tap((response: any) => {
-        if (response && response.user) {
-          localStorage.setItem('user', JSON.stringify(response.user));
+        if (response) {
           return true;
         } else {
           return false;
